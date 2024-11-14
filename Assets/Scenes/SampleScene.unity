@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 357662610}
   - component: {fileID: 357662609}
   - component: {fileID: 357662608}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AudioChildHurt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: 617694302}
   - component: {fileID: 617694303}
   - component: {fileID: 617694304}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -29873,7 +29873,7 @@ Transform:
   m_GameObject: {fileID: 1134748691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2353939, y: -0.4806341, z: 4.310892}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29967,7 +29967,7 @@ GameObject:
   - component: {fileID: 1570007412}
   - component: {fileID: 1570007411}
   - component: {fileID: 1570007410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap Collidables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30857,7 +30857,7 @@ GameObject:
   - component: {fileID: 1608447873}
   - component: {fileID: 1608447872}
   - component: {fileID: 1608447871}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AudioChildDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31191,9 +31191,9 @@ GameObject:
   - component: {fileID: 1722957479}
   - component: {fileID: 1722957478}
   - component: {fileID: 1722957477}
-  - component: {fileID: 1722957476}
   - component: {fileID: 1722957482}
   - component: {fileID: 1722957483}
+  - component: {fileID: 1722957484}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -31201,55 +31201,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1722957476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722957475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1de28f6863a9fa41b4c324fd7c180b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 10
-  jumpForce: 10
-  spriteRenderer: {fileID: 1722957480}
-  onAction2:
-    m_PersistentCalls:
-      m_Calls: []
-  onAction1:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
-  onAction1_2:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 888054532}
-        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: DisplayNextSentence
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  animator: {fileID: 0}
 --- !u!70 &1722957477
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -31297,7 +31248,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -31317,9 +31268,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.48}
+  m_Offset: {x: 0, y: -0.74}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.06
 --- !u!50 &1722957479
 Rigidbody2D:
   serializedVersion: 4
@@ -31442,7 +31393,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1722957476}
+      - m_Target: {fileID: 1722957484}
         m_TargetAssemblyTypeName: PlatformerMovement, Assembly-CSharp
         m_MethodName: Action1
         m_Mode: 0
@@ -31458,7 +31409,7 @@ MonoBehaviour:
     m_ActionName: Player/Action 1[/Keyboard/anyKey]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1722957476}
+      - m_Target: {fileID: 1722957484}
         m_TargetAssemblyTypeName: PlatformerMovement, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -31473,19 +31424,7 @@ MonoBehaviour:
     m_ActionId: f49fab26-2d68-4b65-afd2-2d0775fb732f
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 84061fbf-b276-4785-9662-0fdd283e7b9d
     m_ActionName: Player/Attack[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -31498,7 +31437,7 @@ MonoBehaviour:
     m_ActionName: UI/UI Key[/Keyboard/anyKey,/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1722957476}
+      - m_Target: {fileID: 1722957484}
         m_TargetAssemblyTypeName: PlatformerMovement, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
@@ -31514,7 +31453,7 @@ MonoBehaviour:
     m_ActionName: Player/Action2[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1722957476}
+      - m_Target: {fileID: 1722957484}
         m_TargetAssemblyTypeName: PlatformerMovement, Assembly-CSharp
         m_MethodName: Action2
         m_Mode: 0
@@ -31541,6 +31480,47 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722957475}
   m_Enabled: 1
+--- !u!114 &1722957484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722957475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8cd7635f157409498a45f5c59e2419f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 10
+  jumpForce: 10
+  spriteRenderer: {fileID: 1722957480}
+  dialogManager: {fileID: 888054532}
+  onAction2:
+    m_PersistentCalls:
+      m_Calls: []
+  onAction1:
+    m_PersistentCalls:
+      m_Calls: []
+  onAction1_2:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 888054532}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: DisplayNextSentence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  animator: {fileID: 0}
 --- !u!1 &1777122731
 GameObject:
   m_ObjectHideFlags: 0
@@ -31552,7 +31532,7 @@ GameObject:
   - component: {fileID: 1777122734}
   - component: {fileID: 1777122733}
   - component: {fileID: 1777122732}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AudioChildHurt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31715,7 +31695,7 @@ GameObject:
   - component: {fileID: 1783751467}
   - component: {fileID: 1783751466}
   - component: {fileID: 1783751465}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -32224,7 +32204,7 @@ GameObject:
   - component: {fileID: 1930820271}
   - component: {fileID: 1930820273}
   - component: {fileID: 1930820272}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AudioChildDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}
