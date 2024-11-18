@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //använd raden nedan för att komma åt t.ex. AudioMixer och AudioMixerSnapshots!
-using UnityEngine.Audio;
 
 [RequireComponent(typeof(AudioSource))]
 public class AudioPlay : MonoBehaviour

@@ -3061,6 +3061,8 @@ MonoBehaviour:
   tileData:
   - {fileID: 11400000, guid: 60617548d9f4094488222f5ca222dfd1, type: 2}
   - {fileID: 11400000, guid: 2992a16176f79b240b422a1677bbfb51, type: 2}
+  turnBasedController: {fileID: 979818969}
+  unitManager: {fileID: 1186332043}
 --- !u!4 &979818967
 Transform:
   m_ObjectHideFlags: 0
@@ -3102,13 +3104,69 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: MouseMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 59c31993-59c6-4817-ac97-5475c93e2952
     m_ActionName: Battle/MousePos[/Mouse/position]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: LeftClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 677b7f16-87a9-477f-bcd7-699e9bd19320
     m_ActionName: Battle/LeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2845417c-9263-4cdf-abf2-f77b20b28ec5
+    m_ActionName: Battle/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: Action1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 37d58937-cf74-44a5-b089-35e45d9ec79a
+    m_ActionName: Battle/Action1[/Keyboard/e]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 979818969}
@@ -3123,13 +3181,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 2845417c-9263-4cdf-abf2-f77b20b28ec5
-    m_ActionName: Battle/RightClick[/Mouse/rightButton]
+    m_ActionId: bb631c0e-a796-46dc-ae6f-6652e247ecdf
+    m_ActionName: Battle/Action2[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: Back_Remove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 235579a2-fbeb-49a0-8ab0-9f9bb98f893d
+    m_ActionName: Battle/Remove[/Keyboard/delete,/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818969}
+        m_TargetAssemblyTypeName: TurnBasedController, Assembly-CSharp
+        m_MethodName: Add
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79c0e073-4ffc-463e-8f45-e5c2a4f2ebea
+    m_ActionName: Battle/Start[/Keyboard/enter,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Battle
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 2016063501}
 --- !u!114 &979818969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3144,8 +3234,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onAction1:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1186332042}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onAction2:
+    m_PersistentCalls:
+      m_Calls: []
+  onLeftClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818966}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: SelectionInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onMouseMove:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 979818966}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: MoveInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onAdd:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1186332043}
@@ -3160,6 +3298,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onBackRemove:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1186332043}
+        m_TargetAssemblyTypeName: UnitManager, Assembly-CSharp
+        m_MethodName: RemoveUnitFromTile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  pointerPositionReference: {fileID: 2393004946405869133, guid: e246d089aba10e64ba76c0af5f7b3849, type: 3}
 --- !u!1 &1186332042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,6 +3346,7 @@ MonoBehaviour:
   mapManager: {fileID: 979818966}
   tilemap: {fileID: 1470039916}
   unitPrefab: {fileID: 4938603564264772492, guid: 431d595bb52837e4e81c29ca7d9c4b49, type: 3}
+  hasSelectedUnit: 0
 --- !u!4 &1186332044
 Transform:
   m_ObjectHideFlags: 0

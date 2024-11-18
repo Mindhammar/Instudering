@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class UnitManager : MonoBehaviour
@@ -10,67 +9,137 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] GameObject unitPrefab;
 
-    public Dictionary<Vector3Int, GameObject> UnitPositions = new Dictionary<Vector3Int, GameObject>();
+   
+    public Dictionary<Vector3Int, GameObject> UnitPositions { get; private set; } = new Dictionary<Vector3Int, GameObject>();
+    public bool hasSelectedUnit;
+    private Vector3Int _selectedUnitTilePosition;
+    private string _selectedUnitName;
 
     
-
+    //Example that populates the whole map
     public void PlaceUnitsOnWalkableTiles()
     {
-       
-        if (mapManager.dataFromTiles == null)
+        foreach (var tilePosition in mapManager.WalkableTilePositions)
         {
-            Debug.LogError("dataFromTiles is null.");
-            return;
-        }
-        // Loop through each tile in the dataFromTiles dictionary
-        foreach (var tileEntry in mapManager.dataFromTiles)
-        {
-            TileBase tile = tileEntry.Key;   
-            TileData tileData = tileEntry.Value; 
-
-            // If the tile is walkable, find its position and place a unit
-            if (tileData.canWalk)
-            {
-                // Loop through all positions within the Tilemap's bounds
-                foreach (var tilePosition in tilemap.cellBounds.allPositionsWithin)
-                {
-                    if (tilemap.GetTile(tilePosition) == tile)  // Check if the tile at this position is the same
-                    {
-                        // Place the unit on this tile position
-                        if (unitPrefab != null) PlaceUnitOnTile(tilePosition, unitPrefab);
-                    }
-                }
-            }
+            PlaceUnitOnTile(tilePosition, unitPrefab);
         }
     }
 
-    // Example method to place a unit on a tile
+    public void SpawnUnitHere()
+    {
+        PlaceUnitOnTile(mapManager.CurrentTilePosition, unitPrefab);
+    }
+    
+    //Main Unit logic, add variables for different kinds of unitPrefabs!!!
     void PlaceUnitOnTile(Vector3Int tilePosition, GameObject unitPrefab)
     {
-        // Check if the unitPrefab is assigned
-        if (unitPrefab == null)
+        if (mapManager.WalkableTilePositions.Contains(tilePosition))
         {
-            Debug.LogError("Unit prefab is not assigned.");
+            if (unitPrefab == null)
+            {
+                Debug.LogError("Unit prefab is not assigned.");
+                return;
+            }
+
+            if (UnitPositions.ContainsKey(tilePosition))
+            {
+                Debug.Log("Tile is already occupied by another unit.");
+                return;
+            }
+
+            Vector3 worldPosition = TileUtil.TileCenter(tilemap, tilePosition);
+            GameObject unit = Instantiate(unitPrefab, worldPosition, Quaternion.identity);
+            UnitPositions[tilePosition] = unit;
+        }
+    }
+
+
+    public void SelectUnit(Vector3Int tilePosition)
+    {
+        if (UnitPositions.TryGetValue(tilePosition, out var selectedUnit))
+        {
+            hasSelectedUnit = true;
+            Debug.Log("Selected unit " + selectedUnit + "at " + tilePosition);
+            _selectedUnitTilePosition = tilePosition;
+            _selectedUnitName = selectedUnit.name;
+            
+        }
+    }
+    
+   
+    
+    
+    public void RemoveUnitFromTile()
+    {
+
+        if (hasSelectedUnit)
+        {
+            if (UnitPositions.ContainsKey(_selectedUnitTilePosition))
+            {
+                Debug.Log("Removed unit " + _selectedUnitName + "at " + _selectedUnitTilePosition);
+                Destroy(UnitPositions[_selectedUnitTilePosition]);
+                UnitPositions.Remove(_selectedUnitTilePosition);
+                hasSelectedUnit = false;
+            }
+          
+        }
+        else
+        {
+            Debug.Log("No unit selected.");
+        }
+    }
+
+
+    public void OnTryMoveUnit()
+    {
+        TryMoveUnit(mapManager.CurrentTilePosition);
+    }
+
+
+    void TryMoveUnit(Vector3Int targetMovePosition)
+    {
+        
+        if (!hasSelectedUnit)
+        {
+            Debug.Log ("No unit selected to move!");
+            return;
+        }
+        
+        var targetTile = tilemap.GetTile(targetMovePosition);
+        if (targetTile == null)
+        {
+            Debug.Log("Tile is outside of the map.");
             return;
         }
 
-        Vector3 worldPosition = tilemap.CellToWorld(tilePosition);
-        
-        Vector3 tileSize = tilemap.cellSize;
-        
-        worldPosition.x += tileSize.x / 2;
-        worldPosition.y += tileSize.y / 2;
-        // Check if there's already a unit on this tile
-        if (UnitPositions.ContainsKey(tilePosition))
+        if (!mapManager.WalkableTilePositions.Contains(targetMovePosition))
         {
-            Debug.Log("Tile is already occupied by another unit.");
+            Debug.Log("Can't move " + _selectedUnitName + " at " + _selectedUnitTilePosition + mapManager.CurrentTile);
             return;
         }
 
-        // Instantiate the unit at the tile's position
-        GameObject unit = Instantiate(unitPrefab, worldPosition, Quaternion.identity);
+        if (UnitPositions.ContainsKey(targetMovePosition))
+        {
+            Debug.Log("Target tile is already occupied by another unit.");
+            return;
+        }
+        
+        MoveUnit(targetMovePosition);
 
-        // Add the unit to the dictionary
-        UnitPositions[tilePosition] = unit;
+    }
+    void MoveUnit(Vector3Int targetMovePosition)
+    {
+       GameObject selectedUnit = UnitPositions[_selectedUnitTilePosition];
+       
+       UnitPositions.Remove(_selectedUnitTilePosition);
+       UnitPositions[targetMovePosition] = selectedUnit;
+       
+       Vector3 centeredTargetMovePosition = TileUtil.TileCenter(tilemap, targetMovePosition);
+       
+       selectedUnit.transform.position = centeredTargetMovePosition;
+       
+       hasSelectedUnit = false;
+        
+        
     }
 }
