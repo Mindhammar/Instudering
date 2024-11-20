@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -72,7 +71,7 @@ public class UnitMoveManager : MonoBehaviour
             var unitData = selectedUnit.GetComponent<UnitInGameData>(); 
             
             hasSelectedUnit = true;
-            Debug.Log("Selected unit " + selectedUnit + "at " + tilePosition + unitData.isTeam2);
+            Debug.Log("Selected " + unitData.unitPersonalName + "   [Object name: " + selectedUnit + "  at " + tilePosition + "  IsTeam2: "+ unitData.isTeam2 + "]");
             _selectedUnitTilePosition = tilePosition;
             _selectedUnitName = selectedUnit.name;
             
