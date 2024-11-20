@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
-public class UnitManager : MonoBehaviour
+public class UnitMoveManager : MonoBehaviour
 {
     [SerializeField] private MapManager mapManager;
     [SerializeField] private Tilemap tilemap;
@@ -124,6 +124,8 @@ public class UnitManager : MonoBehaviour
             return;
         }
         
+        //check currently selected unit AP (movement points/action points)
+        
         MoveUnit(targetMovePosition);
 
     }
@@ -142,4 +144,7 @@ public class UnitManager : MonoBehaviour
         
         
     }
+    
+    
+    
 }

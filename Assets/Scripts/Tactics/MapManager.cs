@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
@@ -8,18 +9,26 @@ public class MapManager : MonoBehaviour
     [SerializeField] private List<TileData> tileData;
 
     [SerializeField] TurnBasedController turnBasedController;
-    [SerializeField] UnitManager unitManager;
+    [FormerlySerializedAs("unitManager")] [SerializeField] UnitMoveManager unitMoveManager;
 
     public Dictionary<TileBase, TileData> DataFromTiles { get; private set; }
     public HashSet<Vector3Int> WalkableTilePositions { get; private set; }
     public TileBase CurrentTile { get; private set; }
     public Vector3Int CurrentTilePosition { get; private set; }
+    
+    
+    
+    public Dictionary<Vector3Int, TileBase> TopTiles { get; private set; }
+    public Dictionary<Vector3Int, TileBase> BottomTiles { get; private set; }
 
 
     private void Awake()
     {
         DataFromTiles = new Dictionary<TileBase, TileData>();
         WalkableTilePositions = new HashSet<Vector3Int>();
+        TopTiles = new Dictionary<Vector3Int, TileBase>();
+        BottomTiles = new Dictionary<Vector3Int, TileBase>();
+        Vector3 middlePosition = map.cellBounds.center;
 
         foreach (var tileDataInfo in tileData)
         {
@@ -43,6 +52,24 @@ public class MapManager : MonoBehaviour
                         }
                     }
                 }
+
+                foreach (var pos in map.cellBounds.allPositionsWithin)
+                {
+                    if (map.GetTile(pos) == tile)
+                    {
+                        if (pos.y > middlePosition.y) 
+                        {
+                            TopTiles.Add(pos, tile);
+                        }
+
+                        if (pos.y < middlePosition.y)
+                        {
+                            BottomTiles.Add(pos, tile);
+                        }
+                    }
+                }
+                
+               
             }
         }
     }
@@ -70,11 +97,13 @@ public class MapManager : MonoBehaviour
                 return;
             }
 
+            
+            bool topOrBottom = TopTiles.ContainsKey(gridPosition);
             float modifierMovement = DataFromTiles[targetTile].modifierMovement;
             bool canWalk = DataFromTiles[targetTile].canWalk;
             CurrentTile = targetTile;
             Debug.Log("Rutan är " + targetTile + " på " + gridPosition + "      [canWalk: " + canWalk +
-                      "] [modifierMovement : " + modifierMovement + "]");
+                      "] [modifierMovement : " + modifierMovement + "]" + topOrBottom);
 
         }
 
@@ -85,24 +114,24 @@ public class MapManager : MonoBehaviour
     {
         GetTile();
 
-        if (unitManager.UnitPositions.ContainsKey(CurrentTilePosition))
+        if (unitMoveManager.UnitPositions.ContainsKey(CurrentTilePosition))
         {
-            unitManager.SelectUnit(CurrentTilePosition);
+            unitMoveManager.SelectUnit(CurrentTilePosition);
 
         }
         else
         {
             Debug.Log("Tile has no unit.");
-            unitManager.hasSelectedUnit = false;
+            unitMoveManager.hasSelectedUnit = false;
         }
     }
 
     public void MoveInput()
     {
         GetTile();
-        if (unitManager.hasSelectedUnit)
+        if (unitMoveManager.hasSelectedUnit)
         {
-            unitManager.OnTryMoveUnit();
+            unitMoveManager.OnTryMoveUnit();
         }
         else
         {
