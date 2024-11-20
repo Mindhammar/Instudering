@@ -8,6 +8,6 @@ Jag prövar grejer här för att lära mig saker :)
 
 **[E]**_ Spawna unit på selected tile._
 
-**[Spacebar]** _Spawna units på ALLA tiles och sätt de i teams.
-_
+**[Spacebar]** _Spawna units på ALLA tiles och sätt de i teams._
+
 **[Backspace] [Delete] [Numpad Del]** _Ta bort selected unit._
