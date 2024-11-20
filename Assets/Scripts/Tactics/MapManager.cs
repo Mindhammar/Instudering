@@ -20,7 +20,7 @@ public class MapManager : MonoBehaviour
     
     public Dictionary<Vector3Int, TileBase> TopTiles { get; private set; }
     private string _isTopOrBottom;
-
+    private Vector3Int _middlePosition;
 
 
     private void Awake()
@@ -29,6 +29,7 @@ public class MapManager : MonoBehaviour
         WalkableTilePositions = new HashSet<Vector3Int>();
         TopTiles = new Dictionary<Vector3Int, TileBase>();
         Vector3 middlePosition = map.cellBounds.center;
+        Vector3 adjustedMiddlePosition = middlePosition + new Vector3(0 , -1 , 0);   // IT JUST WORKS! 
 
         foreach (var tileDataInfo in tileData)
         {
@@ -55,7 +56,7 @@ public class MapManager : MonoBehaviour
                     WalkableTilePositions.Add(pos);
                 }
 
-                if (pos.y > middlePosition.y)
+                if (pos.y > adjustedMiddlePosition.y)
                 {
                     TopTiles.Add(pos, mapTile);
                 }

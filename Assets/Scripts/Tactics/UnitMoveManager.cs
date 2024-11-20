@@ -7,6 +7,7 @@ public class UnitMoveManager : MonoBehaviour
     [SerializeField] private MapManager mapManager;
     [SerializeField] private Tilemap tilemap;
     [SerializeField] GameObject unitPrefab;
+    [SerializeField] private TeamAssigner teamAssigner;
 
    
     public Dictionary<Vector3Int, GameObject> UnitPositions { get; } = new Dictionary<Vector3Int, GameObject>();
@@ -22,6 +23,8 @@ public class UnitMoveManager : MonoBehaviour
         {
             PlaceUnitOnTile(tilePosition, unitPrefab);
         }
+        teamAssigner.TryAssignTeam();
+        
     }
 
     public void SpawnUnitHere()
@@ -57,8 +60,10 @@ public class UnitMoveManager : MonoBehaviour
     {
         if (UnitPositions.TryGetValue(tilePosition, out var selectedUnit))
         {
+            var unitData = selectedUnit.GetComponent<UnitInGameData>(); 
+            
             hasSelectedUnit = true;
-            Debug.Log("Selected unit " + selectedUnit + "at " + tilePosition);
+            Debug.Log("Selected unit " + selectedUnit + "at " + tilePosition + unitData.isTeam2);
             _selectedUnitTilePosition = tilePosition;
             _selectedUnitName = selectedUnit.name;
             
@@ -123,7 +128,7 @@ public class UnitMoveManager : MonoBehaviour
             return;
         }
         
-        //check currently selected unit AP (movement points/action points)
+        //Add check to currently selected unit AP (movement points/action points)
         
         MoveUnit(targetMovePosition);
 

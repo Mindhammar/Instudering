@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46a6b3eee5ed9f84a978963a671b5270, type: 3}
-  m_Name: New Unit Base Data
+  m_Name: Dummy
   m_EditorClassIdentifier: 
   unitPrefab: {fileID: 0}
   baseActionPoints: 0

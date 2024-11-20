@@ -2,39 +2,37 @@ using UnityEngine;
 
 public class TeamAssigner : MonoBehaviour
 {
-    private bool _team;  // 0 = Player 1    1 = Player 2
- [SerializeField] private UnitMoveManager unitMoveManager;
- [SerializeField] private MapManager mapManager;
-   
-   
+    [SerializeField] private UnitMoveManager unitMoveManager;
+    [SerializeField] private MapManager mapManager;
 
-   void Start()
-   {
-       if (unitMoveManager == null)
-       {
-           Debug.LogWarning("No UnitMoveManager assigned!");
-       }
+    public void TryAssignTeam()
+    {
+        if (unitMoveManager == null)
+        {
+            Debug.LogWarning("No UnitMoveManager assigned!");
+        }
 
-       if (mapManager == null)
-       {
-           Debug.LogWarning("No MapManager assigned!");
-       }
-       
-       AssignTeams();
+        if (mapManager == null)
+        {
+            Debug.LogWarning("No MapManager assigned!");
+        }
 
-      
-   }
+        AssignTeams();
+    }
 
-   void AssignTeams()
-   {
-       foreach (var units in unitMoveManager.UnitPositions  )
-       {
-           if (!mapManager.TopTiles.ContainsKey(units.Key))
-           {
-               
-           }
-       }
-   }
+    void AssignTeams()
+    {
+        foreach (var (unitPosition, unitObject) in unitMoveManager.UnitPositions)
+        {
+            var unitData = unitObject.GetComponent<UnitInGameData>();
 
+            if (unitData == null)
+            {
+                Debug.LogError($"Unit at {unitPosition} is missing the UnitInGameData component.");
+                continue;
+            }
 
+            unitData.isTeam2 = mapManager.TopTiles.ContainsKey(unitPosition);
+        }
+    }
 }
