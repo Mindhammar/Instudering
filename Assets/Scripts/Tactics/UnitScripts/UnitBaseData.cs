@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -5,6 +6,10 @@ using UnityEngine;
 public class UnitBaseData : ScriptableObject
 {
  public GameObject unitPrefab;
+ public string unitType;
+ public string unitFaction;
+ public string unitName;
+ 
 
  public int baseActionPoints;
  

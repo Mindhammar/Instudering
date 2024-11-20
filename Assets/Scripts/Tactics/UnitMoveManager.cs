@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,11 +10,19 @@ public class UnitMoveManager : MonoBehaviour
     [SerializeField] GameObject unitPrefab;
     [SerializeField] private TeamAssigner teamAssigner;
 
+
+    
+ 
+
    
     public Dictionary<Vector3Int, GameObject> UnitPositions { get; } = new Dictionary<Vector3Int, GameObject>();
     public bool hasSelectedUnit;
     private Vector3Int _selectedUnitTilePosition;
     private string _selectedUnitName;
+    
+ 
+
+    
 
     
     //Example that populates the whole map
@@ -148,7 +157,6 @@ public class UnitMoveManager : MonoBehaviour
         
         
     }
-    
     
     
 }

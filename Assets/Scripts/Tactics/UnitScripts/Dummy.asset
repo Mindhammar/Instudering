@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6b3eee5ed9f84a978963a671b5270, type: 3}
   m_Name: Dummy
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 0}
+  unitPrefab: {fileID: 4938603564264772492, guid: 431d595bb52837e4e81c29ca7d9c4b49, type: 3}
+  unitType: Pawn
+  unitFaction: demon
+  unitName: Impling
   baseActionPoints: 0
   baseEvasion: 0
   baseAccuracy: 0
