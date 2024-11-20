@@ -19,7 +19,8 @@ public class MapManager : MonoBehaviour
     
     
     public Dictionary<Vector3Int, TileBase> TopTiles { get; private set; }
-    public Dictionary<Vector3Int, TileBase> BottomTiles { get; private set; }
+    private string _isTopOrBottom;
+
 
 
     private void Awake()
@@ -27,7 +28,6 @@ public class MapManager : MonoBehaviour
         DataFromTiles = new Dictionary<TileBase, TileData>();
         WalkableTilePositions = new HashSet<Vector3Int>();
         TopTiles = new Dictionary<Vector3Int, TileBase>();
-        BottomTiles = new Dictionary<Vector3Int, TileBase>();
         Vector3 middlePosition = map.cellBounds.center;
 
         foreach (var tileDataInfo in tileData)
@@ -38,46 +38,33 @@ public class MapManager : MonoBehaviour
                 if (!DataFromTiles.TryAdd(tile, tileDataInfo))
                 {
                     Debug.LogWarning($"Duplicate: {tile} found. Skipping.");
-                    continue;
                 }
+            }
+            
+        }
+        
+        foreach (var pos in map.cellBounds.allPositionsWithin)
+        {
+            TileBase mapTile = map.GetTile(pos);
 
-                // Check for canWalk in tileData and add to List
-                if (tileDataInfo.canWalk)
-                {
-                    foreach (var pos in map.cellBounds.allPositionsWithin)
-                    {
-                        if (map.GetTile(pos) == tile)
-                        {
-                            WalkableTilePositions.Add(pos);
-                        }
-                    }
-                }
-
-                foreach (var pos in map.cellBounds.allPositionsWithin)
-                {
-                    if (map.GetTile(pos) == tile)
-                    {
-                        if (pos.y > middlePosition.y) 
-                        {
-                            TopTiles.Add(pos, tile);
-                        }
-
-                        if (pos.y < middlePosition.y)
-                        {
-                            BottomTiles.Add(pos, tile);
-                        }
-                    }
-                }
+            if (mapTile != null && DataFromTiles.TryGetValue(mapTile, out TileData tileInfo))
+            {
                 
-               
+                if (tileInfo.canWalk)
+                {
+                    WalkableTilePositions.Add(pos);
+                }
+
+                if (pos.y > middlePosition.y)
+                {
+                    TopTiles.Add(pos, mapTile);
+                }
             }
         }
     }
 
-
     public void GetTile()
     {
-
         if (Camera.main != null)
         {
             Vector2 mouseCameraPosition = turnBasedController.PointerPosition;
@@ -98,12 +85,13 @@ public class MapManager : MonoBehaviour
             }
 
             
-            bool topOrBottom = TopTiles.ContainsKey(gridPosition);
+            bool isTop = TopTiles.ContainsKey(gridPosition);
+            _isTopOrBottom = isTop ? "GET TOPPED!" : " BOTTOM :indexfingerpointingatscreen: ";
             float modifierMovement = DataFromTiles[targetTile].modifierMovement;
             bool canWalk = DataFromTiles[targetTile].canWalk;
             CurrentTile = targetTile;
             Debug.Log("Rutan är " + targetTile + " på " + gridPosition + "      [canWalk: " + canWalk +
-                      "] [modifierMovement : " + modifierMovement + "]" + topOrBottom);
+                      "] [modifierMovement : " + modifierMovement + "]" + _isTopOrBottom);
 
         }
 
