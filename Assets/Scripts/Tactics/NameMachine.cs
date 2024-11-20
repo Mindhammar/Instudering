@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class NameMachine : MonoBehaviour
 {
-    [SerializeField] UnitMoveManager unitMoveManager;
 
     private List<string> _humanM;
     private List<string> _humanF;
