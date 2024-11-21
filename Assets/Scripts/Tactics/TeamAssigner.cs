@@ -32,7 +32,8 @@ public class TeamAssigner : MonoBehaviour
                 continue;
             }
 
-            unitData.isTeam2 = mapManager.TopTiles.ContainsKey(unitPosition);
+            unitData.unitTeam = mapManager.TopTiles.ContainsKey(unitPosition) ? Team.Team2 : Team.Team1;
+           
         }
     }
 }

@@ -1,10 +1,11 @@
 using UnityEngine;
 
+public enum Team { Team1, Team2 }
 public class UnitInGameData : MonoBehaviour
 {
     [SerializeField]  private UnitBaseData unitBaseData;
 
-    [SerializeField] public bool isTeam2;
+    [SerializeField] public Team unitTeam;
     [SerializeField] public float currentActionPoints;
     
     [SerializeField] private bool hasAttackedThisTurn;
@@ -13,6 +14,7 @@ public class UnitInGameData : MonoBehaviour
     [SerializeField] private bool gender; //0 = male   1 = female
 
     
+ 
     
     
     public string unitPersonalName;
